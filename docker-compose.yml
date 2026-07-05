@@ -3,10 +3,15 @@ services:
   # Production web server
   # ─────────────────────────────────────────────
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: production
+    # --- UNTUK PORTAINER (Opsi 2) ---
+    image: raspi-landing-app:latest
+    
+    # --- UNTUK LOKAL (Komen bagian 'image' di atas, aktifkan ini) ---
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   target: production
+    
     container_name: raspi-landing
     restart: unless-stopped
     ports:
