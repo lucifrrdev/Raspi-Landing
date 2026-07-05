@@ -1,391 +1,43 @@
-/* =============================================
-   RESET & BASE
-   ============================================= */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --primary: hsl(250, 90%, 65%);
-  --primary-dark: hsl(250, 80%, 45%);
-  --secondary: hsl(190, 90%, 55%);
-  --accent: hsl(320, 80%, 60%);
-  --bg-dark: hsl(230, 25%, 7%);
-  --bg-card: hsla(230, 30%, 15%, 0.6);
-  --text-primary: hsl(0, 0%, 96%);
-  --text-muted: hsl(230, 20%, 65%);
-  --border: hsla(250, 60%, 70%, 0.15);
-  --glow: hsla(250, 90%, 65%, 0.35);
-  --font: 'Inter', system-ui, sans-serif;
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
-  font-family: var(--font);
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* =============================================
-   ANIMATED BACKGROUND
-   ============================================= */
-#app {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.bg-gradient {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, hsla(250, 90%, 50%, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, hsla(190, 90%, 50%, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, hsla(320, 80%, 50%, 0.08) 0%, transparent 70%),
-    var(--bg-dark);
-  z-index: 0;
-  animation: bgPulse 8s ease-in-out infinite alternate;
-}
-
-@keyframes bgPulse {
-  from { opacity: 0.8; }
-  to   { opacity: 1; }
-}
-
-/* Floating orbs */
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
-  animation: floatOrb 12s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-.orb-1 {
-  width: 500px; height: 500px;
-  background: var(--primary);
-  top: -150px; left: -100px;
-  animation-duration: 14s;
-}
-.orb-2 {
-  width: 400px; height: 400px;
-  background: var(--secondary);
-  bottom: -100px; right: -80px;
-  animation-duration: 10s;
-  animation-direction: alternate-reverse;
-}
-.orb-3 {
-  width: 300px; height: 300px;
-  background: var(--accent);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation-duration: 16s;
-  opacity: 0.12;
-}
-
-@keyframes floatOrb {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(30px, -40px) scale(1.1); }
-}
-
-/* =============================================
-   MAIN CARD
-   ============================================= */
-.hero {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2rem;
-  padding: 1rem;
-  max-width: 700px;
-  width: 100%;
-}
-
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 3.5rem 3rem;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 32px 80px -12px hsla(0,0%,0%,0.5),
-    0 0 80px -20px var(--glow);
-  animation: cardIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  width: 100%;
-}
-
-@keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
+@layer base {
+  :root {
+    /* Light Mode */
+    --color-background: #f4f4f5;
+    --color-surface: #ffffff;
+    --color-surface-hover: #e4e4e7;
+    --color-border: #d4d4d8;
+    --color-muted: #71717a;
+    --color-text: #27272a;
+    --color-text-strong: #000000;
+    --color-accent: #d4af37;
+    --color-accent-dim: rgba(212, 175, 55, 0.1);
+    --color-red: #ef4444;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+
+  .dark {
+    /* Dark Mode */
+    --color-background: #111111;
+    --color-surface: #1a1a1a;
+    --color-surface-hover: #252525;
+    --color-border: #2a2a2a;
+    --color-muted: #666666;
+    --color-text: #d4d4d4;
+    --color-text-strong: #ffffff;
+    --color-accent: #d4af37;
+    --color-accent-dim: rgba(212, 175, 55, 0.1);
+    --color-red: #ff6b6b;
   }
 }
 
-/* =============================================
-   BADGE
-   ============================================= */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: hsla(250, 90%, 65%, 0.15);
-  border: 1px solid hsla(250, 90%, 65%, 0.3);
-  color: hsl(250, 90%, 80%);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  margin-bottom: 0.5rem;
-  animation: fadeSlideDown 0.6s 0.3s ease both;
-}
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--secondary);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.8); }
-}
-
-/* =============================================
-   TYPOGRAPHY
-   ============================================= */
-.title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #fff 0%, hsl(250,90%,80%) 50%, var(--secondary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: fadeSlideDown 0.7s 0.4s ease both;
-}
-
-.subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-muted);
-  font-weight: 300;
-  line-height: 1.7;
-  max-width: 480px;
-  margin: 0 auto;
-  animation: fadeSlideDown 0.7s 0.5s ease both;
-}
-
-/* =============================================
-   TECH STACK PILLS
-   ============================================= */
-.stack {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeSlideDown 0.7s 0.6s ease both;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: hsla(255,30%,20%,0.7);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.45rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  transition: all 0.25s ease;
-  cursor: default;
-}
-
-.pill:hover {
-  background: hsla(250,90%,65%,0.2);
-  border-color: hsla(250,90%,65%,0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px -4px var(--glow);
-}
-
-.pill-icon {
-  font-size: 1rem;
-}
-
-/* =============================================
-   DIVIDER
-   ============================================= */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
-  animation: fadeSlideDown 0.7s 0.65s ease both;
-}
-
-/* =============================================
-   STATS ROW
-   ============================================= */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  animation: fadeSlideDown 0.7s 0.7s ease both;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.stat-value {
-  font-size: 1.6rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.stat-label {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* =============================================
-   BUTTONS
-   ============================================= */
-.actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeSlideDown 0.7s 0.8s ease both;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-family: var(--font);
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: none;
-  text-decoration: none;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: white;
-  box-shadow: 0 4px 24px -4px var(--glow);
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 32px -4px var(--glow);
-}
-
-.btn-primary:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-}
-
-.btn-ghost:hover {
-  background: hsla(255, 30%, 25%, 0.6);
-  border-color: hsla(250, 90%, 65%, 0.4);
-  transform: translateY(-2px);
-}
-
-/* =============================================
-   FOOTER NOTE
-   ============================================= */
-.footer-note {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  animation: fadeSlideDown 0.7s 0.9s ease both;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.footer-note a {
-  color: hsl(250, 90%, 75%);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-note a:hover {
-  color: var(--secondary);
-  text-decoration: underline;
-}
-
-/* =============================================
-   ANIMATIONS
-   ============================================= */
-@keyframes fadeSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =============================================
-   RESPONSIVE
-   ============================================= */
-@media (max-width: 480px) {
-  .card {
-    padding: 2rem 1.5rem;
-    border-radius: 16px;
-  }
-  .stats {
-    gap: 0.75rem;
-  }
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .btn {
-    justify-content: center;
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
